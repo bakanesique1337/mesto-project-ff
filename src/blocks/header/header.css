@@ -1,4 +1,4 @@
-@import url('./__logo/header__logo.css');
+@import url('__logo/header__logo.css');
 
 .header {
   min-height: 120px;
@@ -28,6 +28,7 @@
   .header {
     min-height: 85px;
   }
+
   .header::before {
     width: calc(100% + 40px);
   }
