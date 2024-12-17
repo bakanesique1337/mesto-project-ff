@@ -1,6 +1,4 @@
-import {cardTemplate} from "../scripts";
-
-export function createCard(card, deleteCard, openModal, createModal, likeCard) {
+export function createCard(card, cardTemplate, deleteCard, likeCard) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
   cardElement.querySelector('.card__title').textContent = card.name;
@@ -8,11 +6,6 @@ export function createCard(card, deleteCard, openModal, createModal, likeCard) {
   const cardImage = cardElement.querySelector('.card__image');
   cardImage.src = card.link;
   cardImage.alt = card.name;
-
-  cardImage.addEventListener('click', () => {
-    const popup = createModal(card);
-    openModal(popup);
-  });
 
   const deleteButton = cardElement.querySelector('.card__delete-button');
   deleteButton.addEventListener('click', () => {
