@@ -1,25 +1,18 @@
-export function handleOpenModal(modalContainer) {
+export function openModal(modalContainer) {
   modalContainer.classList.add('popup_is-opened');
-
-  document.addEventListener('keydown', handleEscapeButton);
+  document.addEventListener('keydown', closeByEsc);
 }
 
-function handleEscapeButton(event, modal) {
+function closeByEsc(event) {
   if (event.key === "Escape") {
-    handleCloseModal(modal);
+    const openedPopup = document.querySelector('.popup_is-opened');
+    closeModal(openedPopup);
   }
 }
 
-export function handleOverlayClick(event, modal) {
-  if (event.target.classList.contains('popup')) {
-    handleCloseModal(modal);
-  }
-}
-
-export function handleCloseModal(modal) {
+export function closeModal(modal) {
   if (modal) {
     modal.classList.remove('popup_is-opened');
-
-    document.removeEventListener('keydown', handleEscapeButton);
+    document.removeEventListener('keydown', closeByEsc);
   }
 }
