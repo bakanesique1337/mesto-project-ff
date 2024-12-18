@@ -100,13 +100,13 @@ formEditProfileElement.addEventListener('submit', (event) => {
   closeModal(popupEditProfile);
 });
 
-popups.forEach((popup) => {  // Для каждого попапа делаем следуюущее
+popups.forEach((popup) => {
   const closeButton = popup.querySelector('.popup__close');
-  closeButton.addEventListener('click', () => closeModal(popup)); // Устанавливаем слушатель на крестик
+  closeButton.addEventListener('click', () => closeModal(popup));
   popup.addEventListener('mousedown', (event) => {
-    if (event.target === event.currentTarget) {    // Устанавливаем слушатель оверлея
+    if (event.target === event.currentTarget) {
       closeModal(popup);
     }
   });
-  popup.classList.add('popup_is-animated'); // Добавляем модификатор для плавного открытия и закрытия попапов
+  popup.classList.add('popup_is-animated');
 });
