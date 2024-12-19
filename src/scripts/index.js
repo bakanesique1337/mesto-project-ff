@@ -42,7 +42,7 @@ function handleCardFormSubmit(event) {
 
   const newCard = createCard(card, cardTemplate, handleDeleteCard, handleLikeCard, fillModalImageFields);
   placesList.prepend(newCard);
-
+  formCreateNewCardElement.reset();
   closeModal(popupNewCard);
 }
 
@@ -58,11 +58,10 @@ function handleProfileFormSubmit(event) {
   closeModal(popupEditProfile);
 }
 
-function fillModalImageFields(url, altMessage, description) {
+function fillModalImageFields(url, name) {
   popupImageElement.src = url;
-  popupImageElement.alt = altMessage;
-
-  popupCaptionElement.textContent = description;
+  popupImageElement.alt = name;
+  popupCaptionElement.textContent = name;
 
   openModal(popupImage);
 }
@@ -70,11 +69,6 @@ function fillModalImageFields(url, altMessage, description) {
 function fillEditProfileModalFields(name, job, title, description) {
   name.value = title.textContent;
   job.value = description.textContent;
-}
-
-function resetNewCardModal() {
-  cardNameInput.value = '';
-  cardLinkInput.value = '';
 }
 
 initialCards.forEach(card => {
@@ -93,7 +87,7 @@ editProfileButton.addEventListener('click', () => {
 formCreateNewCardElement.addEventListener('submit', (event) => {
   handleCardFormSubmit(event);
   closeModal(popupNewCard);
-  resetNewCardModal(popupNewCard);
+  formCreateNewCardElement.reset();
 });
 formEditProfileElement.addEventListener('submit', (event) => {
   handleProfileFormSubmit(event);

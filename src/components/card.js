@@ -4,15 +4,12 @@ export function createCard(card, cardTemplate, deleteCard, likeCard, fillImageMo
   cardElement.querySelector('.card__title').textContent = card.name;
 
   const cardImage = cardElement.querySelector('.card__image');
-  cardImage.src = card.link;
-  cardImage.alt = card.name
-
-  const url = cardImage.src;
-  const altMessage = cardImage.alt;
-  const description = cardElement.querySelector('.card__description').textContent;
+  const {name, link} = card;
+  cardImage.src = link;
+  cardImage.alt = name;
 
   cardImage.addEventListener('click', () => {
-    fillImageModal(url, altMessage, description);
+    fillImageModal(link, name);
   });
 
   const deleteButton = cardElement.querySelector('.card__delete-button');
