@@ -1,0 +1,20 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+coverage
+*.local
+.env
+
+# Editor directories and files
+/.idea/*
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*.tsbuildinfo
