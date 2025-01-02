@@ -25,14 +25,14 @@ function showInputError(form, input, errorMessage) {
   inputError.classList.add('popup__error_visible');
 }
 
-export function hideInputError(form, input) {
+function hideInputError(form, input) {
   const inputError = form.querySelector(`.${input.id}-error`);
   input.classList.remove('popup__input_type_error');
   inputError.classList.remove('popup__error_visible');
   inputError.textContent = "";
 }
 
-export function validation(form, input) {
+function validation(form, input) {
   const inputName = input.getAttribute('name');
   if (!input.validity.valid) {
     if (input.validity.valueMissing) {
@@ -55,14 +55,14 @@ export function validation(form, input) {
   }
 }
 
-export const hasInvalidInput = (inputList) => {
+const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
 
     return !inputElement.validity.valid;
   })
 };
 
-export function toggleSubmitButtonState(inputList, buttonElement) {
+function toggleSubmitButtonState(inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
     buttonElement.disabled = true;
     buttonElement.classList.add('popup__button_disabled');
