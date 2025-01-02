@@ -43,7 +43,7 @@ export function createCard(
   });
 
   likeButton.addEventListener('click', () => {
-    handleLikeCard(likeButton, card, cardLikes, setLike);
+    handleLikeCard(likeButton, _id, cardLikes, setLike);
   });
 
   const userHasLiked = likes.some(like => like['_id'] === userId)
@@ -64,12 +64,13 @@ export function handleDeleteCard(cardElement, deleteCard, cardId) {
     });
 }
 
-export function handleLikeCard(button, card, likesCountElement, setLike) {
+export function handleLikeCard(button, cardId, likesCountElement, setLike) {
   const isLiked = button.classList.contains('card__like-button_is-active');
   console.log('isLiked:', isLiked);
   console.log('likesCountElement:', likesCountElement);
+  console.log('cardId:', cardId);
 
-  setLike(card["_id"], isLiked)
+  setLike(cardId, isLiked)
     .then((updatedCard) => {
       button.classList.toggle('card__like-button_is-active')
       likesCountElement.textContent = updatedCard.likes.length
