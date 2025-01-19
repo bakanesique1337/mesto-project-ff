@@ -180,6 +180,7 @@ function fillEditProfileModalFields(name, job, title, description) {
 }
 
 addCardButton.addEventListener('click', () => {
+  clearValidation(formCreateNewCardElement, validationConfig);
   openModal(popupNewCard);
 });
 editProfileButton.addEventListener('click', () => {
