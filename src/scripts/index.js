@@ -138,12 +138,13 @@ const handleProfileFormSubmit = (event) => {
   const about = jobInput.value;
 
   function makeRequest() {
-    return updateUserInfo({name, about}).then((userData) => {
-      profileTitle.textContent = userData.name;
-      profileDescription.textContent = userData.about;
+    return updateUserInfo({name, about})
+      .then((userData) => {
+        profileTitle.textContent = userData.name;
+        profileDescription.textContent = userData.about;
 
-      closeModal(popupEditProfile);
-    });
+        closeModal(popupEditProfile);
+      });
   }
 
   handleSubmit(makeRequest, event);
@@ -155,10 +156,11 @@ const handleUpdateAvatarSubmit = (event) => {
   const newUrl = avatarUrlInput.value;
 
   function makeRequest() {
-    return updateUserAvatar({avatar: newUrl}).then((userData) => {
-      avatarElement.style.backgroundImage = `url(${userData.avatar})`;
-      closeModal(popupUpdateAvatar);
-    })
+    return updateUserAvatar({avatar: newUrl})
+      .then((userData) => {
+        avatarElement.style.backgroundImage = `url(${userData.avatar})`;
+        closeModal(popupUpdateAvatar);
+      })
   }
 
   handleSubmit(makeRequest, event);

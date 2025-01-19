@@ -63,7 +63,14 @@ export function createCard(
   return cardElement;
 }
 
-export function handleDeleteCard(cardElement, deleteCard, cardId, closeModal, deleteCardModal, callback, submitDeleteButton) {
+export function handleDeleteCard(
+  cardElement,
+  deleteCard,
+  cardId,
+  closeModal,
+  deleteCardModal,
+  callback,
+  submitDeleteButton) {
   console.log(`Вызов удаления произошел! cardId: ${cardId}`)
   console.log('submitDeleteButton:', submitDeleteButton);
   deleteCard(cardId)

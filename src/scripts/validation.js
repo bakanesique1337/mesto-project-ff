@@ -39,10 +39,18 @@ function validation(form, input, config) {
       showInputError(form, input, `Вы пропустили это поле`, config);
     }
     if (input.validity.tooShort) {
-      showInputError(form, input, `Минимальное количество: ${input.getAttribute("minlength")}. Длина сейчас: ${input.value.length}`, config);
+      showInputError(
+        form,
+        input,
+        `Минимальное количество: ${input.getAttribute("minlength")}. Длина сейчас: ${input.value.length}`,
+        config);
     }
     if (input.validity.tooLong) {
-      showInputError(form, input, `Максимальное количество: ${input.getAttribute("maxlength")}. Длина сейчас: ${input.value.length}`, config);
+      showInputError(
+        form,
+        input,
+        `Максимальное количество: ${input.getAttribute("maxlength")}. Длина сейчас: ${input.value.length}`,
+        config);
     }
     if (inputName === 'link' && input.validity.patternMismatch) {
       showInputError(form, input, `Допустимы только валидные ссылки`, config);
