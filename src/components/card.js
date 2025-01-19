@@ -20,6 +20,8 @@ export function createCard(
   const deleteButton = cardElement.querySelector('.card__delete-button');
   const likeButton = cardElement.querySelector('.card__like-button');
 
+  const submitDeleteCardButton = deleteCardModal.querySelector('.popup__button');
+
   const {name, _id, link, likes, owner} = card;
   cardImage.src = link;
   cardImage.alt = name;
@@ -29,18 +31,25 @@ export function createCard(
     fillImageModal(link, name);
   });
 
-  if (owner['_id'] !== userId) {
-    deleteButton.style.visibility = 'hidden';
+  function deleteCallback() {
+    deleteCard(
+      cardElement,
+      deleteCardFromServer,
+      _id,
+      closeModal,
+      deleteCardModal,
+      deleteCallback,
+      submitDeleteCardButton);
   }
 
-  deleteButton.addEventListener('click', () => {
-    openModal(deleteCardModal);
-    const submitDeleteCardButton = deleteCardModal.querySelector('.popup__button');
-    submitDeleteCardButton.addEventListener('click', () => {
-      deleteCard(cardElement, deleteCardFromServer, _id);
-      closeModal(deleteCardModal);
+  if (owner['_id'] === userId) {
+    deleteButton.addEventListener('click', () => {
+      openModal(deleteCardModal);
+      submitDeleteCardButton.addEventListener('click', deleteCallback);
     });
-  });
+  } else {
+    deleteButton.style.visibility = 'hidden';
+  }
 
   likeButton.addEventListener('click', () => {
     handleLikeCard(likeButton, _id, cardLikes, setLike);
@@ -54,10 +63,14 @@ export function createCard(
   return cardElement;
 }
 
-export function handleDeleteCard(cardElement, deleteCard, cardId) {
+export function handleDeleteCard(cardElement, deleteCard, cardId, closeModal, deleteCardModal, callback, submitDeleteButton) {
+  console.log(`Вызов удаления произошел! cardId: ${cardId}`)
+  console.log('submitDeleteButton:', submitDeleteButton);
   deleteCard(cardId)
     .then(() => {
       cardElement.remove();
+      closeModal(deleteCardModal);
+      submitDeleteButton.removeEventListener('click', callback);
     })
     .catch((error) => {
       console.log(`Возникла ошибка при удалении карточки:`, error);
@@ -69,8 +82,8 @@ export function handleLikeCard(button, cardId, likesCountElement, setLike) {
 
   setLike(cardId, isLiked)
     .then((updatedCard) => {
-      button.classList.toggle('card__like-button_is-active')
-      likesCountElement.textContent = updatedCard.likes.length
+      button.classList.toggle('card__like-button_is-active');
+      likesCountElement.textContent = updatedCard.likes.length;
     })
     .catch((err) => console.log(`Возникла ошибка при установке лайка на сервере: ${err}`));
 }

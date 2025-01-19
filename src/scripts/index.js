@@ -17,6 +17,7 @@ import {
   updateUserInfo,
   updateUserAvatar
 } from "./api";
+import {handleSubmit} from "./utils";
 
 const placesList = document.querySelector('.places__list');
 
@@ -98,23 +99,16 @@ const fillProfileWithResponse = (name, about, avatarUrl, title, description, ava
 const handleCardFormSubmit = (event) => {
   event.preventDefault();
 
-  showLoading(formCreateNewCardElement, true);
-
   const name = cardNameInput.value;
   const link = cardLinkInput.value;
   const likes = 0;
   const owner = userId;
   const card = {name, link, likes, owner};
 
-  addCard(card)
-    .then((response) => {
-      const {likes, name, link, owner} = response;
-      const newCard = createCard({
-          name,
-          link,
-          likes,
-          owner
-        },
+  function makeRequest() {
+    return addCard(card).then((cardData) => {
+      const newCard = createCard(
+        cardData,
         userId,
         cardTemplate,
         handleDeleteCard,
@@ -129,64 +123,45 @@ const handleCardFormSubmit = (event) => {
 
       placesList.prepend(newCard);
       formCreateNewCardElement.reset();
-    })
-    .catch((error) => {
-      console.log(`Ошибка при добавлении карточки: ${error}`);
-    }).finally(() => {
-    showLoading(formCreateNewCardElement, false);
-  })
 
-  closeModal(popupNewCard);
+      closeModal(popupNewCard);
+    });
+  }
+
+  handleSubmit(makeRequest, event);
 }
 
 const handleProfileFormSubmit = (event) => {
   event.preventDefault();
 
-  showLoading(formEditProfileElement, true);
-
   const name = nameInput.value;
   const about = jobInput.value;
 
-  updateUserInfo({name, about})
-    .then((response) => {
-      const {name, about, avatar} = response;
-      fillProfileWithResponse(name, about, avatar, profileTitle, profileDescription, avatarElement);
-    })
-    .catch((error) => {
-      console.log(`Произошла ошибка при редактировании информации пользователя: ${error}`);
-    }).finally(() => {
-    showLoading(formEditProfileElement, false);
-  })
+  function makeRequest() {
+    return updateUserInfo({name, about}).then((userData) => {
+      profileTitle.textContent = userData.name;
+      profileDescription.textContent = userData.about;
+
+      closeModal(popupEditProfile);
+    });
+  }
+
+  handleSubmit(makeRequest, event);
 }
 
 const handleUpdateAvatarSubmit = (event) => {
   event.preventDefault();
 
-  showLoading(formUpdateAvatarElement, true);
-
   const newUrl = avatarUrlInput.value;
-  updateUserAvatar({avatar: newUrl})
-    .then((updatedUser) => {
-      avatarElement.style.backgroundImage = `url(${updatedUser.avatar})`;
-      formUpdateAvatarElement.reset();
+
+  function makeRequest() {
+    return updateUserAvatar({avatar: newUrl}).then((userData) => {
+      avatarElement.style.backgroundImage = `url(${userData.avatar})`;
+      closeModal(popupUpdateAvatar);
     })
-    .catch((error) => {
-      console.log(`Произошла ошибка при обновлении аватара: ${error}`);
-    }).finally(() => {
-    showLoading(formUpdateAvatarElement, false);
-  })
-
-  closeModal(popupUpdateAvatar);
-}
-
-const showLoading = (form, isLoading) => {
-  const button = form.querySelector('.popup__button');
-  if (isLoading) {
-    button.textContent = 'Сохранение...';
-  } else {
-    button.textContent = 'Сохранить';
   }
 
+  handleSubmit(makeRequest, event);
 }
 
 function fillModalImageFields(url, name) {
@@ -217,16 +192,12 @@ avatarElement.addEventListener('click', () => {
 
 formCreateNewCardElement.addEventListener('submit', (event) => {
   handleCardFormSubmit(event);
-  closeModal(popupNewCard);
-  clearValidation(formCreateNewCardElement, validationConfig);
 });
 formEditProfileElement.addEventListener('submit', (event) => {
   handleProfileFormSubmit(event);
-  closeModal(popupEditProfile);
 });
 formUpdateAvatarElement.addEventListener('submit', (event) => {
   handleUpdateAvatarSubmit(event);
-  closeModal(popupEditProfile);
 })
 
 popups.forEach((popup) => {
