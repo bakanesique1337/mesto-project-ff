@@ -3,4 +3,9 @@
   font-size: 12px;
   transition: opacity 0.3s;
   opacity: 0;
+  display: none;
+  grid-column: 1;
+  align-self: self-start;
+  grid-row-end: span 2;
+  line-height: 1.1;
 }

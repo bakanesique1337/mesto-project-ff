@@ -16,7 +16,12 @@ export function handleSubmit(request, event, loadingText = "Сохранение
     });
 }
 
-export function renderLoading(isLoading, button, buttonText = 'Сохранить', loadingText = 'Сохранение...') {
+export function renderLoading(
+  isLoading,
+  button,
+  buttonText = 'Сохранить',
+  loadingText = 'Сохранение...'
+) {
   if (isLoading) {
     button.textContent = loadingText;
   } else {

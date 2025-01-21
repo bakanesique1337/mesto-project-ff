@@ -41,18 +41,22 @@
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__form" name="edit-profile">
-        <input id="profile-name" type="text" name="name" class="popup__input popup__input_type_name"
-               placeholder="Имя"
-               minlength="2"
-               maxlength="40" pattern="[A-Za-zА-Яа-яё\-\s]+"
-               data-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" required>
-        <span class="profile-name-error popup__input_error"></span>
-        <input id="profile-description" type="text" name="description"
-               class="popup__input popup__input_type_description" placeholder="Занятие"
-               minlength="2"
-               maxlength="200" pattern="[A-Za-zА-Яа-яё\-\s]+"
-               data-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" required>
-        <span class="profile-description-error popup__input_error"></span>
+        <div class="popup__form_field">
+          <input id="profile-name" type="text" name="name" class="popup__input popup__input_type_name"
+                 placeholder="Имя"
+                 minlength="2"
+                 maxlength="40" pattern="[A-Za-zА-Яа-яё\-\s]+"
+                 data-error="Только латинские/кириллические буквы, дефис, пробелы" required>
+          <span class="profile-name-error popup__input_error"></span>
+        </div>
+        <div class="popup__form_field">
+          <input id="profile-description" type="text" name="description"
+                 class="popup__input popup__input_type_description" placeholder="Занятие"
+                 minlength="2"
+                 maxlength="200" pattern="[A-Za-zА-Яа-яё\-\s]+"
+                 data-error="Только латинские/кириллические буквы, дефис, пробелы" required>
+          <span class="profile-description-error popup__input_error"></span>
+        </div>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
@@ -62,13 +66,15 @@
     <div class="popup__content popup__content_minimized">
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Обновить аватар</h3>
-      <form class="popup__form" name="edit-profile">
-        <input id="avatar-link" type="url" name="link"
-               pattern="^(?:(?:https?|HTTPS?|ftp|FTP):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-zA-Z\u00a1-\uffff0-9]-*)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]-*)*[a-zA-Z\u00a1-\uffff0-9]+)*)(?::\d{2,})?(?:[\/?#]\S*)?$"
-               class="popup__input popup__input_type_avatar-url"
-               placeholder="Ссылка на картинку"
-               required>
-        <span class="avatar-link-error popup__input_error"></span>
+      <form class="popup__form" name="edit-avatar">
+        <div class="popup__form_field">
+          <input id="avatar-link" type="url" name="link"
+                 pattern="^(?:(?:https?|HTTPS?|ftp|FTP):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-zA-Z\u00a1-\uffff0-9]-*)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]-*)*[a-zA-Z\u00a1-\uffff0-9]+)*)(?::\d{2,})?(?:[\/?#]\S*)?$"
+                 class="popup__input popup__input_type_avatar-url"
+                 placeholder="Ссылка на картинку"
+                 required>
+          <span class="avatar-link-error popup__input_error"></span>
+        </div>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
@@ -79,19 +85,23 @@
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Новое место</h3>
       <form class="popup__form" name="new-place">
-        <input id="place-name" type="text" name="place-name" minlength="2" maxlength="30"
-               class="popup__input popup__input_type_card-name"
-               placeholder="Название"
-               pattern="[A-Za-zА-Яа-яё\-\s]+"
-               data-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
-               required>
-        <span class="place-name-error popup__input_error"></span>
-        <input id="link" type="url" name="link"
-               pattern="^(?:(?:https?|HTTPS?|ftp|FTP):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-zA-Z\u00a1-\uffff0-9]-*)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]-*)*[a-zA-Z\u00a1-\uffff0-9]+)*)(?::\d{2,})?(?:[\/?#]\S*)?$"
-               class="popup__input popup__input_type_url"
-               placeholder="Ссылка на картинку"
-               required>
-        <span class="link-error popup__input_error"></span>
+        <div class="popup__form_field">
+          <input id="place-name" type="text" name="place-name" minlength="2" maxlength="30"
+                 class="popup__input popup__input_type_card-name"
+                 placeholder="Название"
+                 pattern="[A-Za-zА-Яа-яё\-\s]+"
+                 data-error="Разрешены: латинские/кириллические буквы, дефис, пробелы"
+                 required>
+          <span class="place-name-error popup__input_error"></span>
+        </div>
+        <div class="popup__form_field">
+          <input id="link" type="url" name="link"
+                 pattern="^(?:(?:https?|HTTPS?|ftp|FTP):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-zA-Z\u00a1-\uffff0-9]-*)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]-*)*[a-zA-Z\u00a1-\uffff0-9]+)*)(?::\d{2,})?(?:[\/?#]\S*)?$"
+                 class="popup__input popup__input_type_url"
+                 placeholder="Ссылка на картинку"
+                 required>
+          <span class="link-error popup__input_error"></span>
+        </div>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>

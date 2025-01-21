@@ -1,16 +1,18 @@
 export function createCard(
   card,
   userId,
-  cardTemplate,
-  deleteCard,
-  deleteCardFromServer,
-  openModal,
-  closeModal,
-  deleteCardModal,
-  handleLikeCard,
-  setLike,
-  fillImageModal
+  callbacks,
+  setCardElementAndIdDelete
 ) {
+  const {
+    cardTemplate,
+    deleteCardModal,
+    openModal,
+    handleLikeCard,
+    setLike,
+    fillImageModal
+  } = callbacks;
+
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
   cardElement.querySelector('.card__title').textContent = card.name;
@@ -19,8 +21,6 @@ export function createCard(
   const cardLikes = cardElement.querySelector('.card__likes-count');
   const deleteButton = cardElement.querySelector('.card__delete-button');
   const likeButton = cardElement.querySelector('.card__like-button');
-
-  const submitDeleteCardButton = deleteCardModal.querySelector('.popup__button');
 
   const {name, _id, link, likes, owner} = card;
   cardImage.src = link;
@@ -31,21 +31,10 @@ export function createCard(
     fillImageModal(link, name);
   });
 
-  function deleteCallback() {
-    deleteCard(
-      cardElement,
-      deleteCardFromServer,
-      _id,
-      closeModal,
-      deleteCardModal,
-      deleteCallback,
-      submitDeleteCardButton);
-  }
-
   if (owner['_id'] === userId) {
     deleteButton.addEventListener('click', () => {
       openModal(deleteCardModal);
-      submitDeleteCardButton.addEventListener('click', deleteCallback);
+      setCardElementAndIdDelete(cardElement, _id);
     });
   } else {
     deleteButton.style.visibility = 'hidden';
@@ -68,16 +57,11 @@ export function handleDeleteCard(
   deleteCard,
   cardId,
   closeModal,
-  deleteCardModal,
-  callback,
-  submitDeleteButton) {
-  console.log(`Вызов удаления произошел! cardId: ${cardId}`)
-  console.log('submitDeleteButton:', submitDeleteButton);
+  deleteCardModal) {
   deleteCard(cardId)
     .then(() => {
       cardElement.remove();
       closeModal(deleteCardModal);
-      submitDeleteButton.removeEventListener('click', callback);
     })
     .catch((error) => {
       console.log(`Возникла ошибка при удалении карточки:`, error);
